@@ -366,6 +366,13 @@ body {
 
     animation: scoreFlash 1s ease;
 
+    border: 2px solid #ffcc00;
+
+    box-shadow:
+        0 0 15px #ffcc00;
+
+    transform: scale(1.03);
+
 }
 
 
