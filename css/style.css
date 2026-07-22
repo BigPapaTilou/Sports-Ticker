@@ -1,1 +1,264 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+
+html,
+body {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #000;
+    color: #fff;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+body {
+
+    display: flex;
+    align-items: center;
+
+}
+
+
+/* Conteneur principal */
+
+.ticker-container {
+
+    width: 100vw;
+    height: 120px;
+
+    background: #050505;
+
+    border-top: 2px solid #222;
+    border-bottom: 2px solid #222;
+
+    overflow: hidden;
+
+}
+
+
+/* Zone alertes */
+
+#alert-zone {
+
+    position: absolute;
+
+    top: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 10;
+
+}
+
+
+/* Fenêtre du ticker */
+
+.ticker-window {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+}
+
+
+/* Bandeau */
+
+.ticker {
+
+    display: flex;
+
+    align-items: center;
+
+    height: 100%;
+
+    width: max-content;
+
+    will-change: transform;
+
+}
+
+
+/* Cartes scores */
+
+.score-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 0 35px;
+
+    height: 100%;
+
+    border-right: 1px solid #222;
+
+    white-space: nowrap;
+
+}
+
+
+/* Logos */
+
+.team-logo {
+
+    width: 42px;
+    height: 42px;
+
+    object-fit: contain;
+
+}
+
+
+/* Ligue */
+
+.league {
+
+    font-weight: 900;
+
+    font-size: 20px;
+
+    padding: 8px 12px;
+
+    border-radius: 5px;
+
+}
+
+
+/* Scores */
+
+.team-name {
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+}
+
+
+.score {
+
+    font-size: 32px;
+
+    font-weight: 900;
+
+}
+
+
+/* Statuts */
+
+.status {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+}
+
+
+.live {
+
+    color: #00ff66;
+
+}
+
+
+.final {
+
+    color: #999;
+
+}
+
+
+.upcoming {
+
+    color: #ffc400;
+
+}
+
+
+/* Alertes */
+
+.alert {
+
+    background: #d00000;
+
+    padding: 18px 35px;
+
+    border-radius: 8px;
+
+    font-size: 28px;
+
+    font-weight: 900;
+
+    animation: flash 0.8s infinite alternate;
+
+}
+
+
+@keyframes flash {
+
+    from {
+
+        opacity: 1;
+
+    }
+
+    to {
+
+        opacity: .5;
+
+    }
+
+}
+
+
+/* Très grands écrans */
+
+@media screen and (min-width: 3000px) {
+
+
+    .ticker-container {
+
+        height: 150px;
+
+    }
+
+
+    .team-name {
+
+        font-size: 34px;
+
+    }
+
+
+    .score {
+
+        font-size: 44px;
+
+    }
+
+
+    .league {
+
+        font-size: 26px;
+
+    }
+
+}
