@@ -206,8 +206,6 @@ async function getAllScores(){
 
         mlb,
 
-        soccer
-
 
     ] = await Promise.all([
 
@@ -232,13 +230,6 @@ async function getAllScores(){
         ),
 
 
-
-        fetchSport(
-            ESPN_API.soccer,
-            "SOCCER"
-        )
-
-
     ]);
 
 
@@ -251,8 +242,6 @@ async function getAllScores(){
         ...ncaa,
 
         ...mlb,
-
-        ...soccer
 
 
     ];
