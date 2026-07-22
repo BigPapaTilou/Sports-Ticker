@@ -20,16 +20,22 @@ const ESPN_API = {
 
 
 
+
+
 async function fetchSport(url, league){
 
 
     try {
 
 
-        const response = await fetch(url);
+        const response =
+        await fetch(url);
 
 
-        const data = await response.json();
+
+        const data =
+        await response.json();
+
 
 
         return parseGames(
@@ -38,7 +44,9 @@ async function fetchSport(url, league){
         );
 
 
-    } catch(error){
+    }
+
+    catch(error){
 
 
         console.error(
@@ -58,6 +66,8 @@ async function fetchSport(url, league){
 
 
 
+
+
 function parseGames(events, league){
 
 
@@ -65,24 +75,28 @@ function parseGames(events, league){
 
 
         const competition =
-            game.competitions[0];
+        game.competitions?.[0];
+
 
 
         const competitors =
-            competition.competitors || [];
+        competition?.competitors || [];
 
 
 
         const home =
-            competitors.find(
-                team => team.homeAway === "home"
-            );
+        competitors.find(
+            team =>
+            team.homeAway === "home"
+        );
+
 
 
         const away =
-            competitors.find(
-                team => team.homeAway === "away"
-            );
+        competitors.find(
+            team =>
+            team.homeAway === "away"
+        );
 
 
 
@@ -95,31 +109,47 @@ function parseGames(events, league){
             id: game.id,
 
 
+
+            date:
+            game.date,
+
+
+
             status:
-            competition.status
+            competition
+            ?.status
             ?.type
             ?.description || "",
 
 
 
             clock:
-            competition.status
+            competition
+            ?.status
             ?.displayClock || "",
 
 
 
             home: {
 
+
                 name:
-                home?.team?.displayName || "",
+                home
+                ?.team
+                ?.displayName || "",
+
 
 
                 logo:
-                home?.team?.logo || "",
+                home
+                ?.team
+                ?.logo || "",
+
 
 
                 score:
                 home?.score || "0"
+
 
             },
 
@@ -127,23 +157,34 @@ function parseGames(events, league){
 
             away: {
 
+
                 name:
-                away?.team?.displayName || "",
+                away
+                ?.team
+                ?.displayName || "",
+
 
 
                 logo:
-                away?.team?.logo || "",
+                away
+                ?.team
+                ?.logo || "",
+
 
 
                 score:
                 away?.score || "0"
 
+
             },
 
 
-            competitors,
 
-            raw:event
+            // données ESPN complètes pour filtres/alertes
+
+            raw:
+            game
+
 
         };
 
@@ -152,6 +193,7 @@ function parseGames(events, league){
 
 
 }
+
 
 
 
@@ -179,16 +221,19 @@ async function getAllScores(){
         ),
 
 
+
         fetchSport(
             ESPN_API.ncaa,
             "NCAA"
         ),
 
 
+
         fetchSport(
             ESPN_API.mlb,
             "MLB"
         ),
+
 
 
         fetchSport(
@@ -203,6 +248,7 @@ async function getAllScores(){
 
     return [
 
+
         ...nfl,
 
         ...ncaa,
@@ -211,115 +257,8 @@ async function getAllScores(){
 
         ...soccer
 
+
     ];
-
-}
-// =================================
-// FILTER UPCOMING GAMES
-// =================================
-
-
-function filterRelevantGames(games){
-
-
-    const now = new Date();
-
-
-    const limit = new Date(
-        now.getTime() + 48 * 60 * 60 * 1000
-    );
-
-
-
-    return games
-
-    .filter(game => {
-
-
-        const gameDate =
-        new Date(game.raw.date);
-
-
-
-        const state =
-        game.raw.competitions[0]
-        ?.status
-        ?.type
-        ?.state;
-
-
-
-        // Match en direct
-
-        if(state === "in"){
-
-            return true;
-
-        }
-
-
-
-        // Match terminé récent
-
-        if(state === "post"){
-
-            return false;
-
-        }
-
-
-
-        // Match dans les 48h
-
-        return (
-
-            gameDate >= now &&
-            gameDate <= limit
-
-        );
-
-
-    })
-
-
-
-    .sort((a,b)=>{
-
-
-        const stateA =
-        a.raw.competitions[0]
-        ?.status
-        ?.type
-        ?.state;
-
-
-
-        const stateB =
-        b.raw.competitions[0]
-        ?.status
-        ?.type
-        ?.state;
-
-
-
-        // LIVE en premier
-
-        if(stateA==="in" && stateB!=="in")
-            return -1;
-
-
-
-        if(stateB==="in" && stateA!=="in")
-            return 1;
-
-
-
-        return new Date(a.raw.date)
-        -
-        new Date(b.raw.date);
-
-
-    });
 
 
 }
