@@ -16,11 +16,6 @@ const games = await getAllScores();
 
 let relevantGames = games;
 
-
-// Tentative de filtrage
-// Si le filtre échoue,
-// on garde tous les matchs
-
 try {
 
     relevantGames =
