@@ -1,37 +1,10 @@
-// Sports Ticker Filters - Debug
+// Sports Ticker Filters TEST
 
 
 function filterRelevantGames(games){
 
+    console.log("FILTER.JS LOADED");
 
-    console.log(
-        "TOTAL GAMES :",
-        games.length
-    );
-
-
-
-    games.forEach(game => {
-
-
-        console.log(
-
-            game.league,
-
-            game.home?.name,
-
-            game.date,
-
-            game.raw?.date
-
-        );
-
-
-    });
-
-
-
-    return games;
-
+    return [];
 
 }
