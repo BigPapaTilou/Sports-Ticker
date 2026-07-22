@@ -22,8 +22,9 @@ async function updateSports(){
         try {
 
 
-            filteredGames =
-            filterRelevantGames(games);
+            filteredGames = [];
+
+console.log("FORCE EMPTY TEST");
 
 
 
