@@ -190,13 +190,39 @@ function getGameStatus(game){
     if(state === "in"){
 
 
-        return (
-            "LIVE " +
-            (game.clock || "")
-        );
+    // Baseball / MLB
+
+    if(game.league === "MLB"){
+
+        const inning =
+        game.raw
+        ?.competitions?.[0]
+        ?.status
+        ?.type
+        ?.shortDetail;
+
+
+
+        if(inning){
+
+            return "LIVE " + inning;
+
+        }
 
 
     }
+
+
+
+    // Sports avec chrono
+
+    return (
+        "LIVE " +
+        (game.clock || "")
+    );
+
+
+}
 
 
 
