@@ -91,11 +91,6 @@ body {
     will-change: transform;
 
 }
-#ticker {
-
-    flex: 1;
-
-    overflow: hidden;
 
 }
 
