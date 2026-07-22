@@ -19,7 +19,17 @@ function filterRelevantGames(games){
 
 
         const date =
-        new Date(game.raw?.date);
+new Date(
+    game.date ||
+    game.raw?.date
+);
+
+
+if(isNaN(date)){
+
+    return false;
+
+}
 
 
 
