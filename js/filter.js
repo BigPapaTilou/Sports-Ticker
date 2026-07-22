@@ -31,6 +31,11 @@ function filterRelevantGames(games){
         ?.state;
 
 
+    console.log(
+    game.league,
+    game.raw.date,
+    state
+);
 
         // Matchs en direct
 
