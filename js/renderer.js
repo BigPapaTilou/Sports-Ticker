@@ -72,9 +72,7 @@ function createScoreCard(game){
 
 
     status.textContent =
-    game.clock
-    ? `${game.status} ${game.clock}`
-    : game.status;
+getGameStatus(game);
 
 
 
@@ -173,6 +171,69 @@ function renderGames(games){
 
     });
 
+
+
+}
+function getGameStatus(game){
+
+
+    const state =
+    game.raw
+    ?.competitions[0]
+    ?.status
+    ?.type
+    ?.state;
+
+
+
+    if(state === "in"){
+
+
+        return (
+            "LIVE " +
+            game.clock
+        );
+
+
+    }
+
+
+
+    if(state === "post"){
+
+
+        return "FINAL";
+
+
+    }
+
+
+
+    if(state === "pre"){
+
+
+        const date =
+        new Date(game.raw.date);
+
+
+
+        return (
+            "TODAY " +
+            date.toLocaleTimeString(
+                "fr-FR",
+                {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            )
+        );
+
+
+    }
+
+
+
+    return game.status;
 
 
 }
