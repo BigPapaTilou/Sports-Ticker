@@ -13,9 +13,6 @@ const ESPN_API = {
     mlb:
     "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard",
 
-    soccer:
-    "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard"
-
 };
 
 
