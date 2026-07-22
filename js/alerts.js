@@ -19,7 +19,7 @@ function checkAlerts(games){
         if(oldGame){
 
 
-            const oldScore =
+            const oldTotal =
 
             Number(oldGame.home.score)
 
@@ -29,7 +29,7 @@ function checkAlerts(games){
 
 
 
-            const newScore =
+            const newTotal =
 
             Number(game.home.score)
 
@@ -39,10 +39,17 @@ function checkAlerts(games){
 
 
 
-            if(newScore > oldScore){
+            if(newTotal > oldTotal){
 
 
                 showAlert(game);
+
+
+                highlightScore(game.id);
+
+
+                highlightTLS();
+
 
             }
 
@@ -58,7 +65,6 @@ function checkAlerts(games){
 
 
 }
-
 
 
 
@@ -91,11 +97,13 @@ function showAlert(game){
     <br>
 
     ${getTeamShort(game.away.name)}
+
     ${game.away.score}
 
     -
 
     ${getTeamShort(game.home.name)}
+
     ${game.home.score}
 
     </div>
@@ -112,6 +120,92 @@ function showAlert(game){
 
     },5000);
 
+
+
+}
+
+
+
+
+
+function highlightScore(id){
+
+
+    const cards =
+    document.querySelectorAll(
+        ".score-card"
+    );
+
+
+
+    cards.forEach(card=>{
+
+
+        if(card.dataset.id == id){
+
+
+            card.classList.add(
+                "score-update"
+            );
+
+
+
+            setTimeout(()=>{
+
+
+                card.classList.remove(
+                    "score-update"
+                );
+
+
+            },1000);
+
+
+
+        }
+
+
+    });
+
+
+}
+
+
+
+
+function highlightTLS(){
+
+
+    const tls =
+    document.getElementById(
+        "tls-logo"
+    );
+
+
+
+    if(!tls){
+
+        return;
+
+    }
+
+
+
+    tls.classList.add(
+        "tls-alert"
+    );
+
+
+
+    setTimeout(()=>{
+
+
+        tls.classList.remove(
+            "tls-alert"
+        );
+
+
+    },1000);
 
 
 }
