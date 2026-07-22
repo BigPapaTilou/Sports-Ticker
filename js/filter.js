@@ -18,18 +18,8 @@ function filterRelevantGames(games){
     .filter(game => {
 
 
-        const date =
-new Date(
-    game.date ||
-    game.raw?.date
-);
-
-
-if(isNaN(date)){
-
-    return false;
-
-}
+        const gameDate =
+        new Date(game.date);
 
 
 
@@ -41,13 +31,8 @@ if(isNaN(date)){
         ?.state;
 
 
-    console.log(
-    game.league,
-    game.raw.date,
-    state
-);
 
-        // Matchs en direct
+        // Match live
 
         if(state === "in"){
 
@@ -57,14 +42,26 @@ if(isNaN(date)){
 
 
 
-        // Matchs à venir dans les 48h
+        // Match terminé
+
+        if(state === "post"){
+
+            return false;
+
+        }
+
+
+
+        // Match programmé dans les 48h
 
         if(state === "pre"){
 
+
             return (
-                date >= now &&
-                date <= limit
+                gameDate >= now &&
+                gameDate <= limit
             );
+
 
         }
 
@@ -74,6 +71,7 @@ if(isNaN(date)){
 
 
     })
+
 
 
     .sort((a,b)=>{
@@ -97,8 +95,6 @@ if(isNaN(date)){
 
 
 
-        // LIVE en premier
-
         if(stateA === "in" && stateB !== "in"){
 
             return -1;
@@ -115,9 +111,9 @@ if(isNaN(date)){
 
 
         return (
-            new Date(a.raw.date)
+            new Date(a.date)
             -
-            new Date(b.raw.date)
+            new Date(b.date)
         );
 
 
