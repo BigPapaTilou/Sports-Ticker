@@ -62,12 +62,12 @@ function filterRelevantGames(games){
 
 
 
-        // Match terminé : garder 3 heures
+        // Match terminé : garder 12h après le début
 
         if(state === "post"){
 
 
-            const hoursSinceEnd =
+            const hoursSinceStart =
 
             (
                 now - gameDate
@@ -79,7 +79,7 @@ function filterRelevantGames(games){
 
 
 
-            return hoursSinceEnd <= 3;
+            return hoursSinceStart <= 12;
 
 
         }
@@ -138,7 +138,7 @@ function filterRelevantGames(games){
 
 
 
-        // Puis les matchs récents terminés
+        // Matchs terminés après les LIVE
 
         if(stateA === "post" && stateB !== "post"){
 
@@ -156,6 +156,27 @@ function filterRelevantGames(games){
 
 
 
+
+        // Les matchs à venir avant les anciens FINAL
+
+        if(stateA === "pre" && stateB === "post"){
+
+            return -1;
+
+        }
+
+
+        if(stateB === "pre" && stateA === "post"){
+
+            return 1;
+
+        }
+
+
+
+
+
+        // Ordre chronologique
 
         return (
             new Date(a.raw.date)
