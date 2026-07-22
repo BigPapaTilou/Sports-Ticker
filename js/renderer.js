@@ -6,9 +6,9 @@ function createScoreCard(game){
 
     const card = document.createElement("div");
 
-card.className = "score-card";
+    card.className = "score-card";
 
-card.dataset.id = game.id;
+    card.dataset.id = game.id;
 
 
 
@@ -45,6 +45,7 @@ card.dataset.id = game.id;
 
 
 
+
     const homeName = document.createElement("span");
 
     homeName.className = "team-name";
@@ -59,8 +60,24 @@ card.dataset.id = game.id;
 
     score.className = "score";
 
+
+    const awayArrow =
+    game.scoringTeam === "away"
+    ? "↑ "
+    : "";
+
+
+    const homeArrow =
+    game.scoringTeam === "home"
+    ? " ↑"
+    : "";
+
+
+
     score.textContent =
-    `${game.away?.score || 0} - ${game.home?.score || 0}`;
+
+    `${awayArrow}${game.away?.score || 0} - ${game.home?.score || 0}${homeArrow}`;
+
 
 
 
@@ -71,6 +88,7 @@ card.dataset.id = game.id;
 
     status.textContent =
     getGameStatus(game);
+
 
 
 
