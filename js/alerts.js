@@ -51,6 +51,7 @@ function checkAlerts(games){
 
             if(newTotal > oldTotal){
 
+    playScoreSound();
 
                 const scoringTeam =
                 getScoringTeam(
