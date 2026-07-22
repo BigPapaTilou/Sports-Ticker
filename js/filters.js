@@ -75,7 +75,7 @@ function filterRelevantGames(games){
 
         // =====================
         // Match terminé
-        // Garder 12h après le début
+        // Garder 24h après le début
         // =====================
 
         if(state === "post"){
@@ -144,7 +144,7 @@ function filterRelevantGames(games){
 
 
         // =====================
-        // LIVE toujours en haut
+        // 1 - LIVE en premier
         // =====================
 
         if(
@@ -176,13 +176,13 @@ function filterRelevantGames(games){
 
 
         // =====================
-        // Matchs à venir avant FINAL
+        // 2 - FINAL avant PRE
         // =====================
 
         if(
-            stateA === "pre"
+            stateA === "post"
             &&
-            stateB === "post"
+            stateB === "pre"
         ){
 
             return -1;
@@ -192,9 +192,9 @@ function filterRelevantGames(games){
 
 
         if(
-            stateB === "pre"
+            stateB === "post"
             &&
-            stateA === "post"
+            stateA === "pre"
         ){
 
             return 1;
@@ -208,7 +208,8 @@ function filterRelevantGames(games){
 
 
         // =====================
-        // FINAL les plus récents en premier
+        // 3 - FINAL récents
+        // du plus récent au plus ancien
         // =====================
 
         if(
@@ -238,7 +239,8 @@ function filterRelevantGames(games){
 
 
         // =====================
-        // Ordre chronologique
+        // 4 - Matchs à venir
+        // ordre chronologique
         // =====================
 
         return (
