@@ -96,7 +96,12 @@ body {
 
 #tls-logo {
 
-    background: #e10600;
+    background: linear-gradient(
+        180deg,
+        #ff1a14 0%,
+        #e10600 50%,
+        #b80000 100%
+    );
 
     color: white;
 
@@ -114,22 +119,22 @@ body {
 
     padding: 0 22px;
 
-    margin-right: 10px;
+    margin-right: 12px;
 
-    border-right: 2px solid white;
+    border-right: 3px solid white;
 
     flex-shrink: 0;
 
     letter-spacing: 2px;
 
-    text-shadow: 1px 1px 2px black;
+    text-shadow:
+        1px 1px 2px black;
 
     position: relative;
 
     z-index: 10;
 
 }
-
 
 /* Bandeau animé */
 
