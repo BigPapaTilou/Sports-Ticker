@@ -9,6 +9,9 @@ let priorityGameId = null;
 let priorityTimeout = null;
 
 
+let lastScoreUpdate = null;
+
+
 
 
 
@@ -63,7 +66,8 @@ async function updateSports(){
 
 
 
-        // Mise en priorité du match qui vient de scorer
+
+        // Détection du dernier score
 
         const scoringGame =
 
@@ -76,29 +80,58 @@ async function updateSports(){
         if(scoringGame){
 
 
-            priorityGameId =
-            scoringGame.id;
+            lastScoreUpdate = {
+
+
+                id: scoringGame.id,
+
+
+                time: Date.now()
+
+
+            };
+
+
+        }
 
 
 
-            clearTimeout(
-                priorityTimeout
-            );
 
 
 
-            priorityTimeout =
+        // Gestion de la priorité temporaire
 
-            setTimeout(()=>{
+        if(lastScoreUpdate){
+
+
+            const elapsed =
+
+            Date.now()
+            -
+            lastScoreUpdate.time;
+
+
+
+            if(elapsed < 8000){
+
+
+                priorityGameId =
+                lastScoreUpdate.id;
+
+
+            }
+
+            else {
 
 
                 priorityGameId = null;
 
 
-            },8000);
+            }
 
 
         }
+
 
 
 
