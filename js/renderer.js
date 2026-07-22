@@ -212,24 +212,34 @@ function getGameStatus(game){
     if(state === "pre"){
 
 
-        const date =
-        new Date(game.raw.date);
+    const date =
+    new Date(game.raw.date);
 
 
 
-        return (
-            "TODAY " +
-            date.toLocaleTimeString(
-                "fr-FR",
-                {
-                    hour:"2-digit",
-                    minute:"2-digit"
-                }
-            )
-        );
+    return (
+        date.toLocaleDateString(
+            "fr-FR",
+            {
+                weekday:"short",
+                day:"2-digit",
+                month:"short"
+            }
+        )
+        +
+        " "
+        +
+        date.toLocaleTimeString(
+            "fr-FR",
+            {
+                hour:"2-digit",
+                minute:"2-digit"
+            }
+        )
+    );
 
 
-    }
+}
 
 
 
