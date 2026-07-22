@@ -430,4 +430,33 @@ body {
 
     }
 
+.score-update {
+
+    animation: scoreFlash 1s ease;
+
+}
+
+
+@keyframes scoreFlash {
+
+    0% {
+
+        background: #e10600;
+
+    }
+
+
+    50% {
+
+        background: #ffcc00;
+
+    }
+
+
+    100% {
+
+        background: transparent;
+
+    }
+
 }
