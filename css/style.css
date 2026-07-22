@@ -91,7 +91,13 @@ body {
     will-change: transform;
 
 }
+#ticker {
 
+    flex: 1;
+
+    overflow: hidden;
+
+}
 
 /* Cartes scores */
 
@@ -266,10 +272,10 @@ body {
 
     display: flex;
     align-items: center;
+    width: 100%;
     overflow: hidden;
 
 }
-
 
 #tls-logo {
 
@@ -292,6 +298,10 @@ body {
     letter-spacing: 1px;
 
     text-shadow: 1px 1px 2px black;
+
+    position: relative;
+
+    z-index: 10;
 
 }
 }
