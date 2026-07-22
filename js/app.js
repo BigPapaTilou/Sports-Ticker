@@ -180,6 +180,11 @@ function sortGamesPriority(games){
     return games.sort((a,b)=>{
 
 
+
+
+
+        // Score récent prioritaire
+
         if(a.id === priorityGameId){
 
             return -1;
@@ -197,68 +202,57 @@ function sortGamesPriority(games){
 
 
 
-        const stateA =
-
-        a.raw?.competitions?.[0]
-        ?.status
-        ?.type
-        ?.state;
 
 
+        function getPriority(game){
 
-        const stateB =
 
-        b.raw?.competitions?.[0]
-        ?.status
-        ?.type
-        ?.state;
+            const state =
+
+            game.raw
+            ?.competitions?.[0]
+            ?.status
+            ?.type
+            ?.state;
 
 
 
 
 
+            // LIVE
 
-        // LIVE en premier
+            if(state === "in"){
 
-        if(stateA === "in" && stateB !== "in"){
+                return 1;
 
-
-            return -1;
-
-
-        }
-
-
-
-        if(stateB === "in" && stateA !== "in"){
-
-
-            return 1;
-
-
-        }
+            }
 
 
 
 
+            // FINAL
 
+            if(state === "post"){
 
-        // Matchs à venir avant les terminés
+                return 2;
 
-        if(stateA === "pre" && stateB === "post"){
-
-
-            return -1;
-
-
-        }
+            }
 
 
 
-        if(stateB === "pre" && stateA === "post"){
+
+            // À venir
+
+            if(state === "pre"){
+
+                return 3;
+
+            }
 
 
-            return 1;
+
+
+            return 4;
 
 
         }
@@ -268,9 +262,88 @@ function sortGamesPriority(games){
 
 
 
-        return new Date(a.raw.date)
-        -
-        new Date(b.raw.date);
+
+        const priorityA =
+        getPriority(a);
+
+
+
+        const priorityB =
+        getPriority(b);
+
+
+
+
+
+
+
+        // LIVE > FINAL > PRE
+
+        if(priorityA !== priorityB){
+
+
+            return priorityA - priorityB;
+
+
+        }
+
+
+
+
+
+
+
+        // FINAL : plus récents en premier
+
+        if(priorityA === 2){
+
+
+            return (
+
+                new Date(b.raw.date)
+
+                -
+
+                new Date(a.raw.date)
+
+            );
+
+
+        }
+
+
+
+
+
+
+
+        // LIVE : garder l'ordre actuel
+
+        if(priorityA === 1){
+
+
+            return 0;
+
+
+        }
+
+
+
+
+
+
+
+        // Matchs à venir : chronologique
+
+        return (
+
+            new Date(a.raw.date)
+
+            -
+
+            new Date(b.raw.date)
+
+        );
 
 
     });
