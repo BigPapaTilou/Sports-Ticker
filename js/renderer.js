@@ -14,7 +14,7 @@ function createScoreCard(game){
 
     league.className = "league";
 
-    league.textContent = game.league;
+    league.textContent = game.league || "";
 
 
 
@@ -22,8 +22,7 @@ function createScoreCard(game){
 
     awayLogo.className = "team-logo";
 
-    awayLogo.src =
-    game.away.logo || "";
+    awayLogo.src = game.away?.logo || "";
 
 
 
@@ -31,8 +30,7 @@ function createScoreCard(game){
 
     homeLogo.className = "team-logo";
 
-    homeLogo.src =
-    game.home.logo || "";
+    homeLogo.src = game.home?.logo || "";
 
 
 
@@ -41,7 +39,7 @@ function createScoreCard(game){
     awayName.className = "team-name";
 
     awayName.textContent =
-    getTeamShort(game.away.name);
+    getTeamShort(game.away?.name || "");
 
 
 
@@ -50,7 +48,8 @@ function createScoreCard(game){
     homeName.className = "team-name";
 
     homeName.textContent =
-    getTeamShort(game.home.name);
+    getTeamShort(game.home?.name || "");
+
 
 
 
@@ -59,36 +58,32 @@ function createScoreCard(game){
     score.className = "score";
 
     score.textContent =
+    `${game.away?.score || 0} - ${game.home?.score || 0}`;
 
-    `${game.away.score} - ${game.home.score}`;
 
 
 
     const status = document.createElement("span");
 
-    status.className =
-    "status";
-
-
+    status.className = "status";
 
     status.textContent =
-getGameStatus(game);
+    getGameStatus(game);
 
 
 
-    if(
-        game.status.includes("Final")
-    ){
+    const gameStatus =
+    game.status || "";
+
+
+
+    if(gameStatus.includes("Final")){
 
         status.classList.add("final");
 
     }
 
-    else if(
-
-        game.status.includes("Scheduled")
-
-    ){
+    else if(gameStatus.includes("Scheduled")){
 
         status.classList.add("upcoming");
 
@@ -135,21 +130,22 @@ function renderGames(games){
     document.getElementById("ticker");
 
 
+
     ticker.innerHTML = "";
 
 
 
-    if(!games.length){
+    if(!games || !games.length){
 
 
-        ticker.innerHTML =
+        ticker.innerHTML = `
 
-        `
         <div class="score-card">
 
         Aucun match disponible
 
         </div>
+
         `;
 
 
@@ -172,36 +168,47 @@ function renderGames(games){
     });
 
 
-
 }
+
+
+
+
+
 function getGameStatus(game){
 
 
     const state =
     game.raw
-    ?.competitions[0]
+    ?.competitions?.[0]
     ?.status
     ?.type
     ?.state;
 
 
 
+
     if(state === "in"){
+
 
         return (
             "LIVE " +
             (game.clock || "")
         );
 
+
     }
+
 
 
 
     if(state === "post"){
 
+
         return "FINAL";
 
+
     }
+
 
 
 
@@ -214,6 +221,7 @@ function getGameStatus(game){
 
 
         return (
+
             date.toLocaleDateString(
                 "fr-FR",
                 {
@@ -221,9 +229,13 @@ function getGameStatus(game){
                     month:"short"
                 }
             )
+
             +
+
             " "
+
             +
+
             date.toLocaleTimeString(
                 "fr-FR",
                 {
@@ -231,6 +243,7 @@ function getGameStatus(game){
                     minute:"2-digit"
                 }
             )
+
         );
 
 
