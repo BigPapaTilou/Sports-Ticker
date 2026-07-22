@@ -12,6 +12,10 @@ let priorityTimeout = null;
 let lastScoreUpdate = null;
 
 
+let refreshTimer = null;
+
+
+
 
 
 
@@ -135,8 +139,6 @@ async function updateSports(){
 
 
 
-        // Tri intelligent
-
         filteredGames =
         sortGamesPriority(filteredGames);
 
@@ -171,13 +173,12 @@ async function updateSports(){
 
 
 
+
 function sortGamesPriority(games){
 
 
     return games.sort((a,b)=>{
 
-
-        // Match avec changement de score
 
         if(a.id === priorityGameId){
 
@@ -259,8 +260,6 @@ function sortGamesPriority(games){
 
 
 
-        // Chronologique
-
         return new Date(a.raw.date)
         -
         new Date(b.raw.date);
@@ -270,6 +269,129 @@ function sortGamesPriority(games){
 
 
 }
+
+
+
+
+
+
+
+
+function getRefreshDelay(){
+
+
+    // Score récent détecté
+
+    if(lastScoreUpdate){
+
+
+        const elapsed =
+
+        Date.now()
+        -
+        lastScoreUpdate.time;
+
+
+
+        if(elapsed < 30000){
+
+
+            return 5000;
+
+
+        }
+
+
+    }
+
+
+
+
+
+
+    // Présence de matchs LIVE
+
+    const liveGames =
+
+    currentGames.filter(game=>{
+
+
+        const state =
+
+        game.raw?.competitions?.[0]
+        ?.status?.type?.state;
+
+
+
+        return state === "in";
+
+
+    });
+
+
+
+
+
+    if(liveGames.length > 0){
+
+
+        return 15000;
+
+
+    }
+
+
+
+
+
+
+    // Aucun live
+
+    return 60000;
+
+
+}
+
+
+
+
+
+
+
+
+function startAutoRefresh(){
+
+
+    if(refreshTimer){
+
+
+        clearTimeout(refreshTimer);
+
+
+    }
+
+
+
+
+
+    refreshTimer =
+
+    setTimeout(async ()=>{
+
+
+        await updateSports();
+
+
+        startAutoRefresh();
+
+
+
+    }, getRefreshDelay());
+
+
+
+}
+
 
 
 
@@ -290,14 +412,8 @@ function startApp(){
 
 
 
-    setInterval(()=>{
+    startAutoRefresh();
 
-
-        updateSports();
-
-
-
-    },30000);
 
 
 
@@ -312,6 +428,8 @@ function startApp(){
 
 
 }
+
+
 
 
 
