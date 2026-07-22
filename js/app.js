@@ -14,7 +14,58 @@ async function updateSports(){
 const games = await getAllScores();
 
 
-let relevantGames = games;
+const now = new Date();
+
+
+const limit = new Date(
+    now.getTime() + 48 * 60 * 60 * 1000
+);
+
+
+
+let relevantGames = games.filter(game => {
+
+
+    const date =
+    new Date(game.raw.date);
+
+
+
+    const state =
+    game.raw.competitions[0]
+    ?.status
+    ?.type
+    ?.state;
+
+
+
+    // Toujours garder les matchs en direct
+
+    if(state === "in"){
+
+        return true;
+
+    }
+
+
+
+    // Garder uniquement les matchs à venir dans 48h
+
+    if(state === "pre"){
+
+        return (
+            date >= now &&
+            date <= limit
+        );
+
+    }
+
+
+
+    return false;
+
+
+});
 
 try {
 
