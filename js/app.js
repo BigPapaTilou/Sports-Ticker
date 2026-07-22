@@ -11,44 +11,55 @@ async function updateSports(){
     try {
 
 
-const games = await getAllScores();
-
-
-let filteredGames = games;
+        const games = await getAllScores();
 
 
 
-try {
-
-    filteredGames = filterRelevantGames(games);
-
-
-}
-
-catch(error){
-
-
-    console.error(
-        "Filter error:",
-        error
-    );
-
-
-}
+        let filteredGames = games;
 
 
 
-currentGames = filteredGames;
+        try {
 
 
-checkAlerts(filteredGames);
+            filteredGames =
+            filterRelevantGames(games);
 
 
-renderGames(filteredGames);
+
+        }
+
+        catch(error){
+
+
+            console.error(
+                "Filter error:",
+                error
+            );
+
+
+            filteredGames = games;
+
+
+        }
+
+
+
+
+        currentGames = filteredGames;
+
+
+
+        checkAlerts(filteredGames);
+
+
+
+        renderGames(filteredGames);
 
 
 
     }
+
 
     catch(error){
 
