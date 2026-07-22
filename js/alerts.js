@@ -21,48 +21,60 @@ function checkAlerts(games){
         if(oldGame){
 
 
-            const oldTotal =
+            const oldHome =
+            Number(oldGame.home.score || 0);
 
-            Number(oldGame.home.score || 0)
 
-            +
+            const newHome =
+            Number(game.home.score || 0);
 
+
+
+            const oldAway =
             Number(oldGame.away.score || 0);
+
+
+            const newAway =
+            Number(game.away.score || 0);
+
+
+
+            const oldTotal =
+            oldHome + oldAway;
 
 
 
             const newTotal =
-
-            Number(game.home.score || 0)
-
-            +
-
-            Number(game.away.score || 0);
+            newHome + newAway;
 
 
 
             if(newTotal > oldTotal){
 
 
-    const scoringTeam = getScoringTeam(
-        oldGame,
-        game
-    );
+                const scoringTeam =
+                getScoringTeam(
+                    oldGame,
+                    game
+                );
 
 
-    game.scoringTeam = scoringTeam;
+
+                game.scoringTeam =
+                scoringTeam;
 
 
-    showAlert(game);
+
+                showAlert(game);
 
 
-    highlightScore(game.id);
+                highlightScore(game.id);
 
 
-    highlightTLS();
+                highlightTLS();
 
 
-}
+            }
 
 
         }
@@ -82,7 +94,7 @@ function checkAlerts(games){
 
 
 
-// Affichage de l'alerte
+// Affichage alerte
 
 function showAlert(game){
 
@@ -197,7 +209,7 @@ function highlightScore(id){
 
 
 
-// Animation du logo TLS
+// Animation logo TLS
 
 function highlightTLS(){
 
@@ -234,7 +246,16 @@ function highlightTLS(){
 
     },1000);
 
+
+
 }
+
+
+
+
+
+
+// Détermine quelle équipe a marqué
 
 function getScoringTeam(oldGame, newGame){
 
@@ -274,5 +295,6 @@ function getScoringTeam(oldGame, newGame){
 
 
     return null;
+
 
 }
