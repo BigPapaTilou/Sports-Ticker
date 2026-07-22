@@ -4,6 +4,13 @@
 let currentGames = [];
 
 
+let priorityGameId = null;
+
+let priorityTimeout = null;
+
+
+
+
 
 async function updateSports(){
 
@@ -46,11 +53,90 @@ async function updateSports(){
 
 
 
+
         currentGames = filteredGames;
 
 
 
         checkAlerts(filteredGames);
+
+
+
+
+        // Mise en priorité du match qui vient de scorer
+
+        const scoringGame =
+
+        filteredGames.find(
+            game => game.scoringTeam
+        );
+
+
+
+        if(scoringGame){
+
+
+            priorityGameId =
+            scoringGame.id;
+
+
+
+            clearTimeout(
+                priorityTimeout
+            );
+
+
+
+            priorityTimeout =
+
+            setTimeout(()=>{
+
+
+                priorityGameId = null;
+
+
+            },8000);
+
+
+        }
+
+
+
+
+
+        // Réorganisation temporaire
+
+        if(priorityGameId){
+
+
+            filteredGames.sort((a,b)=>{
+
+
+                if(a.id === priorityGameId){
+
+                    return -1;
+
+                }
+
+
+
+                if(b.id === priorityGameId){
+
+                    return 1;
+
+                }
+
+
+
+                return 0;
+
+
+            });
+
+
+        }
+
+
 
 
 
@@ -74,6 +160,8 @@ async function updateSports(){
 
 
 }
+
+
 
 
 
