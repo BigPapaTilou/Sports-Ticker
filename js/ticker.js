@@ -7,6 +7,11 @@ let tickerSpeed = 1.2;
 
 let tickerElement = null;
 
+let animationStarted = false;
+
+
+
+
 
 
 function startTicker(){
@@ -25,16 +30,84 @@ function startTicker(){
 
 
 
-    // duplication pour créer une boucle infinie
-
-    tickerElement.innerHTML +=
-    tickerElement.innerHTML;
 
 
+    createInfiniteLoop();
 
-    animateTicker();
+
+
+    if(!animationStarted){
+
+
+        animationStarted = true;
+
+
+        animateTicker();
+
+
+    }
+
 
 }
+
+
+
+
+
+
+
+function createInfiniteLoop(){
+
+
+    // éviter les duplications multiples
+
+    if(
+        tickerElement.dataset.cloned === "true"
+    ){
+
+        return;
+
+    }
+
+
+
+
+
+    const items =
+
+    Array.from(
+        tickerElement.children
+    );
+
+
+
+
+
+    items.forEach(item=>{
+
+
+        const clone =
+        item.cloneNode(true);
+
+
+        tickerElement.appendChild(
+            clone
+        );
+
+
+    });
+
+
+
+
+
+    tickerElement.dataset.cloned = "true";
+
+
+}
+
+
+
 
 
 
@@ -43,22 +116,40 @@ function startTicker(){
 function animateTicker(){
 
 
+
     tickerPosition -= tickerSpeed;
 
 
 
+
+
     const halfWidth =
+
     tickerElement.scrollWidth / 2;
 
 
 
+
+
+
+
     if(
-        Math.abs(tickerPosition) >= halfWidth
+        Math.abs(tickerPosition)
+        >=
+        halfWidth
     ){
+
+
+        // reset invisible
 
         tickerPosition = 0;
 
+
     }
+
+
+
+
 
 
 
@@ -68,12 +159,17 @@ function animateTicker(){
 
 
 
+
+
     requestAnimationFrame(
         animateTicker
     );
 
 
 }
+
+
+
 
 
 
