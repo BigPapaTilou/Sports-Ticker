@@ -11,87 +11,20 @@ async function updateSports(){
     try {
 
 
-const games = await getAllScores();
-
-
-const now = new Date();
-
-
-const limit = new Date(
-    now.getTime() + 48 * 60 * 60 * 1000
-);
+        const games = await getAllScores();
 
 
 
-let relevantGames = games.filter(game => {
-
-
-    const date =
-    new Date(game.raw.date);
+        currentGames = games;
 
 
 
-    const state =
-    game.raw.competitions[0]
-    ?.status
-    ?.type
-    ?.state;
+        checkAlerts(games);
 
 
 
-    // Toujours garder les matchs en direct
+        renderGames(games);
 
-    if(state === "in"){
-
-        return true;
-
-    }
-
-
-
-    // Garder uniquement les matchs à venir dans 48h
-
-    if(state === "pre"){
-
-    return (
-        date.getTime() >= now.getTime() &&
-        date.getTime() <= limit.getTime()
-    );
-
-}
-
-
-
-    return false;
-
-
-});
-
-try {
-
-    relevantGames =
-    filterRelevantGames(games);
-
-}
-
-catch(error){
-
-    console.log(
-        "Filter disabled:",
-        error
-    );
-
-}
-
-
-
-currentGames = relevantGames;
-
-
-checkAlerts(relevantGames);
-
-
-renderGames(relevantGames);
 
 
     }
@@ -100,7 +33,7 @@ renderGames(relevantGames);
 
 
         console.error(
-            "Update error:",
+            "Sports update error:",
             error
         );
 
@@ -127,8 +60,6 @@ function startApp(){
 
 
 
-    // Mise à jour scores
-
     setInterval(()=>{
 
 
@@ -139,8 +70,6 @@ function startApp(){
     },30000);
 
 
-
-    // démarrage animation
 
     setTimeout(()=>{
 
