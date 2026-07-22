@@ -336,13 +336,33 @@ function getGameStatus(game){
 
 
 
-            const inning =
+            const competition =
 
             game.raw
-            ?.competitions?.[0]
+            ?.competitions?.[0];
+
+
+
+            const inning =
+
+            competition
             ?.status
             ?.type
             ?.shortDetail;
+
+
+
+            const outs =
+
+            competition
+            ?.situation
+            ?.outs;
+
+
+
+
+
+            let status = "";
 
 
 
@@ -351,7 +371,15 @@ function getGameStatus(game){
             if(inning){
 
 
-                return inning;
+                status += inning;
+
+
+            }
+
+            else {
+
+
+                status += "LIVE";
 
 
             }
@@ -359,7 +387,40 @@ function getGameStatus(game){
 
 
 
-            return "LIVE";
+
+
+            if(outs !== undefined && outs !== null){
+
+
+
+                status +=
+
+                " • " +
+
+                outs +
+
+                " OUT";
+
+
+
+
+                if(outs > 1){
+
+
+                    status += "S";
+
+
+                }
+
+
+            }
+
+
+
+
+
+
+            return status;
 
 
 
