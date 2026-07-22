@@ -410,14 +410,6 @@ function startAutoRefresh(){
 function startApp(){
 
 
-
-    // Initialisation du système sonore
-
-    initSound();
-
-
-
-
     console.log(
         "Sports Ticker Started"
     );
