@@ -44,16 +44,25 @@ function checkAlerts(games){
             if(newTotal > oldTotal){
 
 
-                showAlert(game);
+    const scoringTeam = getScoringTeam(
+        oldGame,
+        game
+    );
 
 
-                highlightScore(game.id);
+    game.scoringTeam = scoringTeam;
 
 
-                highlightTLS();
+    showAlert(game);
 
 
-            }
+    highlightScore(game.id);
+
+
+    highlightTLS();
+
+
+}
 
 
         }
@@ -225,6 +234,45 @@ function highlightTLS(){
 
     },1000);
 
+}
 
+function getScoringTeam(oldGame, newGame){
+
+
+    const oldHome =
+    Number(oldGame.home.score || 0);
+
+
+    const newHome =
+    Number(newGame.home.score || 0);
+
+
+
+    const oldAway =
+    Number(oldGame.away.score || 0);
+
+
+    const newAway =
+    Number(newGame.away.score || 0);
+
+
+
+    if(newHome > oldHome){
+
+        return "home";
+
+    }
+
+
+
+    if(newAway > oldAway){
+
+        return "away";
+
+    }
+
+
+
+    return null;
 
 }
