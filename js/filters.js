@@ -97,7 +97,7 @@ function filterRelevantGames(games){
 
 
 
-            return hoursSinceStart <= 12;
+            return hoursSinceStart <= 24;
 
 
         }
