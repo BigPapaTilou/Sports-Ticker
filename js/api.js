@@ -13,6 +13,8 @@ const ESPN_API = {
     mlb:
     "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard",
 
+     premierleague:
+    "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard",
 };
 
 
@@ -199,15 +201,11 @@ async function getAllScores(){
 
 
     const [
-
-        nfl,
-
-        ncaa,
-
-        mlb,
-
-
-    ] = await Promise.all([
+    nfl,
+    ncaa,
+    mlb,
+    premierleague
+] = await Promise.all([
 
 
         fetchSport(
@@ -229,22 +227,22 @@ async function getAllScores(){
             "MLB"
         ),
 
-
+fetchSport(
+    ESPN_API.premierleague,
+    "PREMIER LEAGUE"
+)
     ]);
 
 
 
     return [
 
+    ...nfl,
+    ...ncaa,
+    ...mlb,
+    ...premierleague
 
-        ...nfl,
-
-        ...ncaa,
-
-        ...mlb,
-
-
-    ];
+];
 
 
 }
