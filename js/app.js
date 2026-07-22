@@ -53,12 +53,12 @@ let relevantGames = games.filter(game => {
 
     if(state === "pre"){
 
-        return (
-            date >= now &&
-            date <= limit
-        );
+    return (
+        date.getTime() >= now.getTime() &&
+        date.getTime() <= limit.getTime()
+    );
 
-    }
+}
 
 
 
