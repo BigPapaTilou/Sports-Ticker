@@ -12,11 +12,14 @@ function createScoreCard(game){
 
 
 
+
     const league = document.createElement("div");
 
     league.className = "league";
 
     league.textContent = game.league || "";
+
+
 
 
 
@@ -28,11 +31,15 @@ function createScoreCard(game){
 
 
 
+
+
     const homeLogo = document.createElement("img");
 
     homeLogo.className = "team-logo";
 
     homeLogo.src = game.home?.logo || "";
+
+
 
 
 
@@ -42,6 +49,7 @@ function createScoreCard(game){
 
     awayName.textContent =
     getTeamShort(game.away?.name || "");
+
 
 
 
@@ -56,27 +64,42 @@ function createScoreCard(game){
 
 
 
+
+
     const score = document.createElement("span");
 
     score.className = "score";
 
 
+
     const awayArrow =
+
     game.scoringTeam === "away"
+
     ? "↑ "
+
     : "";
+
 
 
     const homeArrow =
+
     game.scoringTeam === "home"
+
     ? " ↑"
+
     : "";
+
+
 
 
 
     score.textContent =
 
     `${awayArrow}${game.away?.score || 0} - ${game.home?.score || 0}${homeArrow}`;
+
+
+
 
 
 
@@ -92,28 +115,48 @@ function createScoreCard(game){
 
 
 
-    const gameStatus =
-    game.status || "";
 
 
 
-    if(gameStatus.includes("Final")){
+    const state =
+
+    game.raw
+    ?.competitions?.[0]
+    ?.status
+    ?.type
+    ?.state;
+
+
+
+
+
+    if(state === "post"){
+
 
         status.classList.add("final");
 
+
     }
 
-    else if(gameStatus.includes("Scheduled")){
+
+    else if(state === "pre"){
+
 
         status.classList.add("upcoming");
 
+
     }
+
 
     else {
 
+
         status.classList.add("live");
 
+
     }
+
+
 
 
 
@@ -134,6 +177,8 @@ function createScoreCard(game){
 
 
 
+
+
     return card;
 
 
@@ -143,10 +188,15 @@ function createScoreCard(game){
 
 
 
+
+
+
+
 function renderGames(games){
 
 
     const ticker =
+
     document.getElementById("ticker");
 
 
@@ -155,7 +205,10 @@ function renderGames(games){
 
 
 
+
+
     if(!games || !games.length){
+
 
 
         ticker.innerHTML = `
@@ -169,9 +222,15 @@ function renderGames(games){
         `;
 
 
+
         return;
 
+
     }
+
+
+
+
 
 
 
@@ -179,13 +238,17 @@ function renderGames(games){
 
 
         const card =
+
         createScoreCard(game);
+
 
 
         ticker.appendChild(card);
 
 
+
     });
+
 
 
 }
@@ -194,10 +257,16 @@ function renderGames(games){
 
 
 
+
+
+
+
 function getGameStatus(game){
 
 
+
     const state =
+
     game.raw
     ?.competitions?.[0]
     ?.status
@@ -207,42 +276,173 @@ function getGameStatus(game){
 
 
 
+
+
     if(state === "in"){
 
 
-    // Baseball / MLB
-
-    if(game.league === "MLB"){
-
-        const inning =
-        game.raw
-        ?.competitions?.[0]
-        ?.status
-        ?.type
-        ?.shortDetail;
 
 
 
-        if(inning){
+        // =====================
+        // NFL
+        // =====================
 
-            return "LIVE " + inning;
+
+        if(game.league === "NFL"){
+
+
+
+            const detail =
+
+            game.raw
+            ?.competitions?.[0]
+            ?.status
+            ?.type
+            ?.shortDetail;
+
+
+
+
+            if(detail){
+
+
+                return detail;
+
+
+            }
+
+
+
+            return "LIVE";
+
+
 
         }
+
+
+
+
+
+
+
+
+        // =====================
+        // MLB
+        // =====================
+
+
+        if(game.league === "MLB"){
+
+
+
+            const inning =
+
+            game.raw
+            ?.competitions?.[0]
+            ?.status
+            ?.type
+            ?.shortDetail;
+
+
+
+
+
+            if(inning){
+
+
+                return inning;
+
+
+            }
+
+
+
+
+            return "LIVE";
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+        // =====================
+        // Premier League / Soccer
+        // =====================
+
+
+        if(
+
+            game.league === "Premier League"
+
+            ||
+
+            game.league === "PL"
+
+            ||
+
+            game.league === "Soccer"
+
+        ){
+
+
+
+            if(game.clock){
+
+
+
+                return game.clock + "'";
+
+
+
+            }
+
+
+
+
+            return "LIVE";
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+        // =====================
+        // Autres sports
+        // =====================
+
+
+        return (
+
+            "LIVE "
+
+            +
+
+            (game.clock || "")
+
+        );
+
 
 
     }
 
 
 
-    // Sports avec chrono
 
-    return (
-        "LIVE " +
-        (game.clock || "")
-    );
-
-
-}
 
 
 
@@ -258,42 +458,77 @@ function getGameStatus(game){
 
 
 
+
+
+
+
     if(state === "pre"){
 
 
+
         const date =
+
         new Date(game.raw.date);
+
+
 
 
 
         return (
 
+
+
             date.toLocaleDateString(
+
                 "fr-FR",
+
                 {
+
                     day:"2-digit",
+
                     month:"short"
+
                 }
+
             )
+
+
 
             +
 
             " "
 
+
+
             +
 
+
+
             date.toLocaleTimeString(
+
                 "fr-FR",
+
                 {
+
                     hour:"2-digit",
+
                     minute:"2-digit"
+
                 }
+
             )
+
+
 
         );
 
 
+
     }
+
+
+
+
 
 
 
