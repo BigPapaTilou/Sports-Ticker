@@ -5,6 +5,8 @@ let previousGames = {};
 
 
 
+// Vérification des changements de score
+
 function checkAlerts(games){
 
 
@@ -21,21 +23,21 @@ function checkAlerts(games){
 
             const oldTotal =
 
-            Number(oldGame.home.score)
+            Number(oldGame.home.score || 0)
 
             +
 
-            Number(oldGame.away.score);
+            Number(oldGame.away.score || 0);
 
 
 
             const newTotal =
 
-            Number(game.home.score)
+            Number(game.home.score || 0)
 
             +
 
-            Number(game.away.score);
+            Number(game.away.score || 0);
 
 
 
@@ -69,6 +71,10 @@ function checkAlerts(games){
 
 
 
+
+
+// Affichage de l'alerte
+
 function showAlert(game){
 
 
@@ -76,6 +82,7 @@ function showAlert(game){
     document.getElementById(
         "alert-zone"
     );
+
 
 
     if(!zone){
@@ -92,19 +99,19 @@ function showAlert(game){
 
     <div class="alert">
 
-    🚨 SCORE UPDATE 🚨
+        🚨 SCORE UPDATE 🚨
 
-    <br>
+        <br>
 
-    ${getTeamShort(game.away.name)}
+        ${getTeamShort(game.away.name)}
 
-    ${game.away.score}
+        ${game.away.score}
 
-    -
+        -
 
-    ${getTeamShort(game.home.name)}
+        ${getTeamShort(game.home.name)}
 
-    ${game.home.score}
+        ${game.home.score}
 
     </div>
 
@@ -115,7 +122,7 @@ function showAlert(game){
     setTimeout(()=>{
 
 
-        zone.innerHTML="";
+        zone.innerHTML = "";
 
 
     },5000);
@@ -128,20 +135,26 @@ function showAlert(game){
 
 
 
+
+// Flash de la carte concernée
+
 function highlightScore(id){
 
 
     const cards =
+
     document.querySelectorAll(
         ".score-card"
     );
 
 
 
-    cards.forEach(card=>{
+    cards.forEach(card => {
+
 
 
         if(card.dataset.id == id){
+
 
 
             card.classList.add(
@@ -173,10 +186,15 @@ function highlightScore(id){
 
 
 
+
+
+// Animation du logo TLS
+
 function highlightTLS(){
 
 
     const tls =
+
     document.getElementById(
         "tls-logo"
     );
@@ -206,6 +224,7 @@ function highlightTLS(){
 
 
     },1000);
+
 
 
 }
