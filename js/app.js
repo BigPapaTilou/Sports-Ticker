@@ -222,7 +222,9 @@ function sortGamesPriority(games){
 
         if(stateA === "in" && stateB !== "in"){
 
+
             return -1;
+
 
         }
 
@@ -230,7 +232,9 @@ function sortGamesPriority(games){
 
         if(stateB === "in" && stateA !== "in"){
 
+
             return 1;
+
 
         }
 
@@ -243,7 +247,9 @@ function sortGamesPriority(games){
 
         if(stateA === "pre" && stateB === "post"){
 
+
             return -1;
+
 
         }
 
@@ -251,7 +257,9 @@ function sortGamesPriority(games){
 
         if(stateB === "pre" && stateA === "post"){
 
+
             return 1;
+
 
         }
 
@@ -400,6 +408,14 @@ function startAutoRefresh(){
 
 
 function startApp(){
+
+
+
+    // Initialisation du système sonore
+
+    initSound();
+
+
 
 
     console.log(
