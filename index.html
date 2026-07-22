@@ -1,151 +1,45 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Sports Ticker</title>
-<style>
-:root{
-    --bg:#000;
-    --text:#fff;
-    --nfl:#013369;
-    --ncaa:#0066cc;
-    --mlb:#041e42;
-    --pga:#0b6b2f;
-}
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:var(--bg);
-    color:var(--text);
-    font-family:Arial,Helvetica,sans-serif;
-}
-body{
-    display:flex;
-    align-items:center;
-}
-.ticker-wrapper{
-    width:100vw;
-    height:140px;
-    overflow:hidden;
-    border-top:2px solid #222;
-    border-bottom:2px solid #222;
-    background:#050505;
-}
-.ticker{
-    display:flex;
-    align-items:center;
-    height:100%;
-    width:max-content;
-    will-change:transform;
-}
-.card{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    padding:0 40px;
-    height:100%;
-    border-right:1px solid #222;
-    white-space:nowrap;
-}
-.league{
-    font-size:1.1rem;
-    font-weight:900;
-    padding:10px 14px;
-    border-radius:8px;
-}
-.nfl{background:var(--nfl);}
-.ncaa{background:var(--ncaa);}
-.mlb{background:var(--mlb);}
-.pga{background:var(--pga);}
-.score{
-    font-size:2rem;
-    font-weight:800;
-}
-.status{
-    color:#00ff88;
-    font-weight:bold;
-}
-.upcoming{
-    color:#ffc107;
-}
-.final{
-    color:#ff5252;
-}
-@media (min-width:2560px){
-    .score{
-        font-size:2.8rem;
-    }
-    .league{
-        font-size:1.4rem;
-    }
-}
-</style>
+
+<link rel="stylesheet" href="css/style.css">
+
 </head>
+
 <body>
-<div class="ticker-wrapper">
-<div class="ticker" id="ticker">
-    <div class="card">
-        <div class="league nfl">NFL</div>
-        <div class="score">Chiefs 31 - Bills 28</div>
-        <div class="status final">FINAL</div>
+
+<div class="ticker-container">
+
+    <div id="alert-zone"></div>
+
+    <div class="ticker-window">
+
+        <div id="ticker" class="ticker">
+
+            <div class="loading">
+                Loading Sports Ticker...
+            </div>
+
+        </div>
+
     </div>
-    <div class="card">
-        <div class="league nfl">NFL</div>
-        <div class="score">Cowboys @ Eagles</div>
-        <div class="status upcoming">20:20 ET</div>
-    </div>
-    <div class="card">
-        <div class="league ncaa">NCAA #1</div>
-        <div class="score">Georgia 34 - Alabama 27</div>
-        <div class="status final">FINAL</div>
-    </div>
-    <div class="card">
-        <div class="league ncaa">NCAA #3</div>
-        <div class="score">Ohio State @ Michigan</div>
-        <div class="status upcoming">19:30</div>
-    </div>
-    <div class="card">
-        <div class="league mlb">MLB</div>
-        <div class="score">Yankees 5 - Red Sox 3</div>
-        <div class="status final">FINAL</div>
-    </div>
-    <div class="card">
-        <div class="league mlb">MLB</div>
-        <div class="score">Dodgers @ Padres</div>
-        <div class="status upcoming">22:10</div>
-    </div>
-    <div class="card">
-        <div class="league pga">PGA</div>
-        <div class="score">Scottie Scheffler -11</div>
-    </div>
-    <div class="card">
-        <div class="league pga">PGA</div>
-        <div class="score">Rory McIlroy -9</div>
-    </div>
+
 </div>
-</div>
-<script>
-const ticker = document.getElementById("ticker");
-ticker.innerHTML += ticker.innerHTML;
-let pos = 0;
-const speed = 1.2;
-function animate(){
-    pos -= speed;
-    if(pos <= -(ticker.scrollWidth / 2)){
-        pos = 0;
-    }
-    ticker.style.transform =
-        `translate3d(${pos}px,0,0)`;
-    requestAnimationFrame(animate);
-}
-animate();
-</script>
+
+
+<script src="js/teams.js"></script>
+<script src="js/api.js"></script>
+<script src="js/renderer.js"></script>
+<script src="js/alerts.js"></script>
+<script src="js/ticker.js"></script>
+<script src="js/app.js"></script>
+
+
 </body>
+
 </html>
