@@ -67,7 +67,7 @@ async function updateSports(){
 
 
 
-        // Détection du dernier score
+        // Détection dernier score
 
         const scoringGame =
 
@@ -98,8 +98,7 @@ async function updateSports(){
 
 
 
-
-        // Gestion de la priorité temporaire
+        // Gestion priorité temporaire
 
         if(lastScoreUpdate){
 
@@ -136,38 +135,10 @@ async function updateSports(){
 
 
 
+        // Tri intelligent
 
-        // Réorganisation temporaire
-
-        if(priorityGameId){
-
-
-            filteredGames.sort((a,b)=>{
-
-
-                if(a.id === priorityGameId){
-
-                    return -1;
-
-                }
-
-
-
-                if(b.id === priorityGameId){
-
-                    return 1;
-
-                }
-
-
-
-                return 0;
-
-
-            });
-
-
-        }
+        filteredGames =
+        sortGamesPriority(filteredGames);
 
 
 
@@ -190,6 +161,112 @@ async function updateSports(){
 
 
     }
+
+
+}
+
+
+
+
+
+
+
+function sortGamesPriority(games){
+
+
+    return games.sort((a,b)=>{
+
+
+        // Match avec changement de score
+
+        if(a.id === priorityGameId){
+
+            return -1;
+
+        }
+
+
+        if(b.id === priorityGameId){
+
+            return 1;
+
+        }
+
+
+
+
+
+        const stateA =
+
+        a.raw?.competitions?.[0]
+        ?.status
+        ?.type
+        ?.state;
+
+
+
+        const stateB =
+
+        b.raw?.competitions?.[0]
+        ?.status
+        ?.type
+        ?.state;
+
+
+
+
+
+
+        // LIVE en premier
+
+        if(stateA === "in" && stateB !== "in"){
+
+            return -1;
+
+        }
+
+
+
+        if(stateB === "in" && stateA !== "in"){
+
+            return 1;
+
+        }
+
+
+
+
+
+
+        // Matchs à venir avant les terminés
+
+        if(stateA === "pre" && stateB === "post"){
+
+            return -1;
+
+        }
+
+
+
+        if(stateB === "pre" && stateA === "post"){
+
+            return 1;
+
+        }
+
+
+
+
+
+
+        // Chronologique
+
+        return new Date(a.raw.date)
+        -
+        new Date(b.raw.date);
+
+
+    });
 
 
 }
