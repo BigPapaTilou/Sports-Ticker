@@ -521,4 +521,51 @@ body {
 
 }
 
+/* Breaking News TLS */
+
+#tls-logo.tls-alert::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 60%;
+
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.8),
+        transparent
+    );
+
+    animation: tlsScan 0.8s ease;
+
+}
+
+
+
+@keyframes tlsScan {
+
+
+    from {
+
+        left: -100%;
+
+    }
+
+
+    to {
+
+        left: 150%;
+
+    }
+
+}
+        
 }
