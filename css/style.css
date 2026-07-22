@@ -347,4 +347,72 @@ body {
 
     }
 
+.score-update {
+
+    animation: scoreFlash 1s ease;
+
+}
+
+
+@keyframes scoreFlash {
+
+    0% {
+
+        background: #e10600;
+
+        transform: scale(1);
+
+    }
+
+
+    50% {
+
+        background: #ffcc00;
+
+        transform: scale(1.05);
+
+    }
+
+
+    100% {
+
+        background: transparent;
+
+        transform: scale(1);
+
+    }
+
+}
+
+
+
+.tls-alert {
+
+    animation: tlsPulse 0.8s ease;
+
+}
+
+
+@keyframes tlsPulse {
+
+    0% {
+
+        filter: brightness(1);
+
+    }
+
+
+    50% {
+
+        filter: brightness(2);
+
+    }
+
+
+    100% {
+
+        filter: brightness(1);
+
+    }
+
 }
