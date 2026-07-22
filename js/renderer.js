@@ -6,7 +6,9 @@ function createScoreCard(game){
 
     const card = document.createElement("div");
 
-    card.className = "score-card";
+card.className = "score-card";
+
+card.dataset.id = game.id;
 
 
 
