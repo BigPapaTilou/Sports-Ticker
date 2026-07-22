@@ -222,8 +222,6 @@ body {
 
 
 
-/* Petit effet premium */
-
 .score-card:hover {
 
     transform: scale(1.02);
@@ -460,67 +458,6 @@ body {
 
 
 
-
-
-/* Très grands écrans */
-
-@media screen and (min-width: 3000px) {
-
-
-    .ticker-container {
-
-        height: 150px;
-
-    }
-
-
-    .team-name {
-
-        font-size: 34px;
-
-    }
-
-
-    .score {
-
-        font-size: 44px;
-
-    }
-
-
-    .league {
-
-        font-size: 26px;
-
-    #sound-toggle {
-
-    background: #111;
-
-    color: white;
-
-    border: 1px solid #444;
-
-    font-size: 20px;
-
-    width: 45px;
-
-    height: 45px;
-
-    border-radius: 50%;
-
-    margin-right: 10px;
-
-    cursor: pointer;
-
-}
-
-
-#sound-toggle:hover {
-
-    background: #e10600;
-
-}
-
 /* Breaking News TLS */
 
 #tls-logo.tls-alert::before {
@@ -567,5 +504,39 @@ body {
     }
 
 }
-        
+
+
+
+/* Très grands écrans */
+
+@media screen and (min-width: 3000px) {
+
+
+    .ticker-container {
+
+        height: 150px;
+
+    }
+
+
+    .team-name {
+
+        font-size: 34px;
+
+    }
+
+
+    .score {
+
+        font-size: 44px;
+
+    }
+
+
+    .league {
+
+        font-size: 26px;
+
+    }
+
 }
