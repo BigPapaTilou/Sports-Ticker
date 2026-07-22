@@ -14,13 +14,38 @@ async function updateSports(){
 const games = await getAllScores();
 
 
-currentGames = games;
+let relevantGames = games;
 
 
-checkAlerts(games);
+// Tentative de filtrage
+// Si le filtre échoue,
+// on garde tous les matchs
+
+try {
+
+    relevantGames =
+    filterRelevantGames(games);
+
+}
+
+catch(error){
+
+    console.log(
+        "Filter disabled:",
+        error
+    );
+
+}
 
 
-renderGames(games);
+
+currentGames = relevantGames;
+
+
+checkAlerts(relevantGames);
+
+
+renderGames(relevantGames);
 
 
     }
