@@ -11,20 +11,16 @@ async function updateSports(){
     try {
 
 
-     const games = await getAllScores();
+const games = await getAllScores();
 
 
-const relevantGames =
-filterRelevantGames(games);
+currentGames = games;
 
 
-currentGames = relevantGames;
+checkAlerts(games);
 
 
-checkAlerts(relevantGames);
-
-
-renderGames(relevantGames);
+renderGames(games);
 
 
     }
