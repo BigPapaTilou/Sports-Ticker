@@ -283,17 +283,21 @@ body {
 
 .alert {
 
-    background: #d00000;
+    background: #e10600;
 
-    padding: 18px 35px;
+    padding: 12px 30px;
 
-    border-radius: 8px;
+    border-radius: 6px;
 
-    font-size: 28px;
+    font-size: 22px;
 
     font-weight: 900;
 
-    animation: flash 0.8s infinite alternate;
+    border: 2px solid white;
+
+    text-align: center;
+
+    animation: alertSlide 0.4s ease;
 
 }
 
@@ -301,15 +305,26 @@ body {
 @keyframes flash {
 
     from {
-
         opacity: 1;
-
     }
 
     to {
-
         opacity: .5;
+    }
 
+}
+
+
+@keyframes alertSlide {
+
+    from {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
     }
 
 }
