@@ -20,6 +20,7 @@ body {
         Arial,
         Helvetica,
         sans-serif;
+
 }
 
 
@@ -76,7 +77,53 @@ body {
 }
 
 
-/* Bandeau */
+/* Wrapper TLS + ticker */
+
+#ticker-wrapper {
+
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+
+/* Logo TLS */
+
+#tls-logo {
+
+    background: #e10600;
+
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    padding: 8px 14px;
+
+    margin-right: 10px;
+
+    border: 2px solid white;
+
+    flex-shrink: 0;
+
+    letter-spacing: 1px;
+
+    text-shadow: 1px 1px 2px black;
+
+    position: relative;
+
+    z-index: 10;
+
+}
+
+
+/* Bandeau animé */
 
 .ticker {
 
@@ -92,7 +139,6 @@ body {
 
 }
 
-}
 
 /* Cartes scores */
 
@@ -115,11 +161,12 @@ body {
 }
 
 
-/* Logos */
+/* Logos équipes */
 
 .team-logo {
 
     width: 42px;
+
     height: 42px;
 
     object-fit: contain;
@@ -142,7 +189,7 @@ body {
 }
 
 
-/* Scores */
+/* Noms équipes */
 
 .team-name {
 
@@ -153,6 +200,8 @@ body {
 }
 
 
+/* Score */
+
 .score {
 
     font-size: 32px;
@@ -162,7 +211,7 @@ body {
 }
 
 
-/* Statuts */
+/* Statut */
 
 .status {
 
@@ -262,41 +311,4 @@ body {
 
     }
 
-}
-#ticker-wrapper {
-
-    display: flex;
-    align-items: center;
-    width: 100%;
-    overflow: hidden;
-
-}
-
-#tls-logo {
-
-    background: #e10600;
-
-    color: white;
-
-    font-size: 24px;
-
-    font-weight: 900;
-
-    padding: 8px 14px;
-
-    margin-right: 10px;
-
-    border: 2px solid white;
-
-    flex-shrink: 0;
-
-    letter-spacing: 1px;
-
-    text-shadow: 1px 1px 2px black;
-
-    position: relative;
-
-    z-index: 10;
-
-}
 }
